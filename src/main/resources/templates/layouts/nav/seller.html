@@ -1,0 +1,42 @@
+<div th:fragment="seller"
+     th:remove="tag"
+     xmlns:th="http://www.thymeleaf.org/"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+	<li class="nav-item">
+		<a class="nav-link"
+		   th:href="@{/seller/orders}">
+			<i class="fas fa-fw fa-barcode"></i>
+			<span>Đặt Hàng</span></a>
+	</li>
+	
+	<li class="nav-item">
+		<a class="nav-link"
+		   th:href="@{/account/profile}">
+			<i class="fas fa-fw fa-user-cog"></i>
+			<span>Hồ Sơ</span></a>
+	</li>
+	
+	<li class="nav-item">
+		<a class="nav-link"
+		   th:href="@{/seller/shop}">
+			<i class="fas fa-fw fa-store-alt"></i>
+			<span>Thông Tin Cửa Hàng</span></a>
+	</li>
+
+	<li class="nav-item" th:if="${allowUpdateProduct == true}">
+		<a class="nav-link"
+		   th:href="@{/seller/product}">
+			<i class="fas fa-fw fa-boxes"></i>
+			<span>Sản Phẩm</span></a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-link"
+		   th:href="@{/seller/followers}">
+			<i class="fas fa-fw fa-user-plus"></i>
+			<span>Người Theo Dõi</span></a>
+	</li>
+	
+</div>

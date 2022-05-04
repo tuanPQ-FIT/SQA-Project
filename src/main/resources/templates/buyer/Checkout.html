@@ -1,0 +1,88 @@
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/user}">
+<head>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/cart.js}"></script>
+</head>
+<div class="container" layout:fragment="content">
+    <h1>Checkout</h1>
+    <div>
+        <form th:object="${order}" action="#" th:action="@{/buyer/order}" method="post">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Địa Chỉ Giao Hàng :</label>
+                        <div class="col-8">
+                            <input type="text" class="form-control" th:field="*{shippingAddress}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Địa Chỉ Hóa Đơn</label>
+                        <div class="col-8">
+                            <input type="text" class="form-control" th:field="*{billingAddress}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="form-check">
+                            <input type="checkbox" th:field="*{usingPoints}" class="form-check-input"/>
+                            <label class="form-check-label">Use my points   (With each point, you will be given $1) </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Phương Thức Thanh Toán</label>
+                        <div class="col-8">
+                            <select th:field="*{paymentMethod}" class="form-control">
+                                <option th:value="'CREDIT CARD'">CREDIT CARD</option>
+                                <option th:value="'DEBIT CARD'">DEBIT CARD</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Card Number</label>
+                        <div class="col-8">
+                            <input type="text" th:field="*{paymentInfo}" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">CVV</label>
+                        <div class="col-8">
+                            <input type="text" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div >
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Sản Phẩm</th>
+                        <th>Giá</th>
+                        <th>Số Lượng</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="item: ${cart}">
+                        <td th:text="${item.product.name}"></td>
+                        <td th:text="'$' + ${item.product.price}"></td>
+                        <td th:text="${item.quantity}"></td>
+                    </tr>
+                    <tfoot>
+                    <tr>
+                        <td colspan="3"><b>Total Amount: $<span th:text="${totalAmount}"></span></b></td>
+                    </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+
+            <input type="submit" value="Place Order" class="btn btn-primary"/>
+
+        </form>
+    </div>
+    <div class="m-3"></div>
+</div>
+</html>

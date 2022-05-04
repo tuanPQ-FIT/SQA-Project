@@ -1,0 +1,60 @@
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/user}">
+<div class="container" layout:fragment="content">
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Lịch Sử Đặt Hàng
+
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="grid" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Trạng Thái</th>
+                        <th>Người Mua</th>
+                        <th>Tổng Số Tiền</th>
+                        <th>Địa Chỉ Hóa Đơn</th>
+                        <th>Ngày Đặt Hàng</th>
+                        <th>Tác Vụ</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Trạng Thái</th>
+                        <th>Người Mua</th>
+                        <th>Tổng Số Tiền</th>
+                        <th>Địa Chỉ Hóa Đơn</th>
+                        <th>Ngày Đặt Hàng</th>
+                        <th>Tác Vụ</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    <tr th:each="order: ${orders}">
+                        <td th:text="${order.status}"></td>
+                        <td th:text="${order.buyer.user.firstName} + ' ' + ${order.buyer.user.lastName}"></td>
+                        <td th:text="'$' + ${order.totalAmount}"></td>
+                        <td th:text="${order.billingAddress}"></td>
+                        <td th:text="${#temporals.format(order.orderedDate, 'dd-MM-yyyy HH:mm')}"></td>
+                        <td>
+                            <form th:object="${order}" action="#" th:action="@{/buyer/orders/} + ${order.id}">
+                                <input type="submit" value="Details" class="btn btn-info btn-sm"/>
+                            </form>
+                            <form th:object="${order}" action="#" th:action="@{/buyer/orders/delete/} + ${order.id}" method="post">
+                                <input type="submit" value="Delete" class="btn btn-danger btn-sm mt-2"/>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+</html>

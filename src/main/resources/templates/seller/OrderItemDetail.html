@@ -1,0 +1,59 @@
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/user}">
+<div class="container" layout:fragment="content">
+    <h1>Order Item Detail</h1>
+    <div >
+        <div>
+            <form th:object="${item}" action="#" th:action="@{/seller/orders/} + ${item.id} + @{/status}" method="post">
+            <dl class="row">
+                <dt class="col-sm-3">Buyer Name</dt>
+                <dd class="col-sm-9" th:text="${item.order.buyer.user.firstName} + ' ' + ${item.order.buyer.user.lastName}"></dd>
+
+                <dt class="col-sm-3">Buyer's Phone</dt>
+                <dd class="col-sm-9" th:text="${item.order.buyer.user.phone}"></dd>
+
+                <dt class="col-sm-3">Buyer's Email</dt>
+                <dd class="col-sm-9" th:text="${item.order.buyer.user.email}"></dd>
+
+                <dt class="col-sm-3">Product</dt>
+                <dd class="col-sm-9" th:text="${item.product.name}"></dd>
+
+                <dt class="col-sm-3">Price</dt>
+                <dd class="col-sm-9" th:text="'$' + ${item.product.price}"></dd>
+
+                <dt class="col-sm-3">Quantity</dt>
+                <dd class="col-sm-9" th:text="${item.quantity}"></dd>
+
+                <dt class="col-sm-3">Total Price</dt>
+                <dd class="col-sm-9" th:text="'$' + ${totalPrice}"></dd>
+
+                <dt class="col-sm-3">Shipping Address</dt>
+                <dd class="col-sm-9" th:text="${item.order.shippingAddress}"></dd>
+
+                <dt class="col-sm-3">Billing Address</dt>
+                <dd class="col-sm-9" th:text="${item.order.billingAddress}"></dd>
+
+                <dt class="col-sm-3">Status</dt>
+                <dd class="col-sm-3" >
+                    <select th:field="*{orderStatus}">
+                        <option th:value="'ORDERED'">ORDERED</option>
+                        <option th:value="'SHIPPED'">SHIPPED</option>
+                        <option th:value="'DELIVERED'">DELIVERED</option>
+                        <option th:value="'RETURNED'">RETURNED</option>
+                        <option th:value="'CANCELED'">CANCELED</option>
+                    </select>
+                </dd>
+
+                <dt class="col-sm-3"></dt>
+                <dd class="col-sm-9">
+                    <input type="submit" value="Change status" class="btn btn-primary"/>
+                </dd>
+
+            </dl>
+            </form>
+        </div>
+    </div>
+</div>
+</html>

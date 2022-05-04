@@ -1,0 +1,33 @@
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/user}">
+<div class="container" layout:fragment="content">
+    <h1>Review Product</h1>
+    <div >
+
+        <div>
+            <dl class="row">
+                <dt class="col-sm-3">Name</dt>
+                <dd class="col-sm-9" th:text="${item.product.name}"></dd>
+
+                <dt class="col-sm-3">Description</dt>
+                <dd class="col-sm-9" th:text="${item.product.description}"></dd>
+
+                <dt class="col-sm-3">Price</dt>
+                <dd class="col-sm-9" th:text="'$' + ${item.product.price}"></dd>
+
+                <dt class="col-sm-3">Seller</dt>
+                <dd class="col-sm-9" th:text="${item.product.seller.name}"></dd>
+            </dl>
+        </div>
+        <div>
+            <form th:object="${item}" action="#" th:action="@{/buyer/item/} + ${item.id} + @{/review}" method="post">
+                <textarea th:field="*{review}" class="form-control"></textarea><br/>
+                <input type="submit" value="Submit" class="btn btn-success"/>
+            </form>
+        </div>
+
+    </div>
+</div>
+</html>

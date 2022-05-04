@@ -1,0 +1,43 @@
+<div th:fragment="admin"
+     th:remove="tag"
+     xmlns:th="http://www.thymeleaf.org/"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	
+	<li class="nav-item">
+		<a class="nav-link"
+		   th:href="@{/admin/dashboard}">
+			<i class="fas fa-fw fa-tachometer-alt"></i>
+			<span>Bảng Điều Khiển</span>
+		</a>
+	</li>
+	
+	<li class="nav-item">
+		<a class="nav-link"
+		   th:href="@{/account/profile}">
+			<i class="fas fa-fw fa-user-cog"></i>
+			<span>Hồ Sơ</span></a>
+	</li>
+	
+	<li class="nav-item">
+		<a class="nav-link"
+		   th:href="@{/admin/reviews}">
+			<i class="fas fa-fw fa-feather-alt"></i>
+			<span>Đánh Giá</span></a>
+	</li>
+	
+	<li class="nav-item">
+		<a class="nav-link"
+		   th:href="@{/admin/sellers}">
+			<i class="fas fa-fw fa-store-alt"></i>
+			<span>Người Bán</span></a>
+	</li>
+	
+	
+	<li class="nav-item">
+		<a class="nav-link"
+		   th:href="@{/admin/ads}">
+			<i class="fas fa-fw fa-table"></i>
+			<span>Quảng Cáo</span></a>
+	</li>
+	
+</div>

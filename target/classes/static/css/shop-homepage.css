@@ -1,0 +1,36 @@
+body {
+  padding-top: 56px;
+  background: red;
+}
+
+.cssBackgroundHeader{
+  background: #fff !important;
+}
+.xuantoi{
+  color: red;
+}
+.scroll-to-top{
+  background: #dc3545 !important;
+}
+.navbar-toggler{
+  background: #dc3545 !important;
+}
+.active{
+  background: #dc3545 !important;
+
+}
+
+.cssforinput{
+  min-width: 400px;
+}
+@media (max-width: 992px) {
+  .cssforinputdisplay{
+    display: none!important;
+  }
+}
+.sidebar{
+  background: #dc3545 !important;
+}
+/*#cssForImage{*/
+/*  background:url([[@{/img/backgroundimage}]])*/
+/*}*/

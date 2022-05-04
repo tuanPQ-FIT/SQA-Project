@@ -1,0 +1,95 @@
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/user}">
+<div class="container" layout:fragment="content">
+    <p>
+        <h1>Order Details</h1>
+    </p>
+
+    <div>
+        <div>
+            <dl class="row">
+                <dt class="col-sm-3">Trạng Thái</dt>
+                <dd class="col-sm-9" th:text="${order.status}"></dd>
+
+                <dt class="col-sm-3">Địa Chỉ Giao Hàng</dt>
+                <dd class="col-sm-9" th:text="${order.shippingAddress}"></dd>
+
+                <dt class="col-sm-3">Địa Chỉ Hóa Đơn</dt>
+                <dd class="col-sm-9" th:text="${order.billingAddress}"></dd>
+
+                <dt class="col-sm-3">Tổng Số Tiên</dt>
+                <dd class="col-sm-9" th:text="'$' + ${order.totalAmount}"></dd>
+
+                <dt class="col-sm-3">Thông Tin Thanh Toán</dt>
+                <dd class="col-sm-9" th:text="${order.paymentInfo}"></dd>
+
+                <dt class="col-sm-3">Ngày Đặt Hàng</dt>
+                <dd class="col-sm-9" th:text="${#temporals.format(order.orderedDate, 'dd-MM-yyyy HH:mm')}"></dd>
+
+                <dt class="col-sm-3">Ngày Nhận Hàng</dt>
+                <dd class="col-sm-9" th:text="${#temporals.format(order.endDate, 'dd-MM-yyyy HH:mm')}"></dd>
+
+                <dt class="col-sm-3"></dt>
+                <dd class="col-sm-9">** With each $100, you will be given 1 point if you complete the order</dd>
+            </dl>
+
+        </div>
+        <div class="row">
+            <div class="col-xs-6 pl-3">
+                <form th:object="${order}" action="#" th:action="@{/buyer/orders/} + ${order.id} + @{/cancel}" method="post">
+                    <input type="submit" value="Cancel" th:if="${order.status.toString() == 'NEW'}" class="btn btn-primary"/>
+                </form>
+            </div>
+            <div class="col-xs-6 pl-3">
+                <form th:object="${order}" action="#" th:action="@{/buyer/orders/} + ${order.id} + @{/download}" method="post">
+                    <input type="submit" value="Download Receipt" th:if="${order.status.toString() == 'COMPLETED' and order.totalAmount > 0}" class="btn btn-danger"/>
+                </form>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="grid" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Sản Phẩm</th>
+                        <th>Giá</th>
+                        <th>Số Lượng</th>
+                        <th>Trạng Thái</th>
+                        <th colspan="2">Tác Vụ</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Sản Phẩm</th>
+                        <th>Giá</th>
+                        <th>Số Lượng</th>
+                        <th>Trạng Thái</th>
+                        <th colspan="2">Tác Vụ</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    <tr th:each="item: ${order.orderItems}">
+                        <td th:text="${item.product.name}"></td>
+                        <td th:text="'$' + ${item.product.price}"></td>
+                        <td th:text="${item.quantity}"></td>
+                        <td th:text="${item.orderStatus}"></td>
+                        <td class="align-middle">
+                            <form action="#" th:action="@{/buyer/item/} + ${item.id} + @{/review}">
+                                <input type="submit" value="Review" class="btn btn-primary btn-sm"/>
+                            </form>
+                            <form action="#" th:action="@{/buyer/item/} + ${item.id} + @{/cancel}" method="post">
+                                <input type="submit" value="Cancel" th:if="${item.orderStatus.toString() == 'ORDERED'}" class="btn btn-primary btn-sm mt-3"/>
+                            </form>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <div class="m-5"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

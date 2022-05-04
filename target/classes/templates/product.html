@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org/"
+      layout:decorate="~{layouts/home}">
+
+<div class="container" layout:fragment="content">
+
+    <div class="row">
+
+
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-12">
+
+            <div class="row">
+                <div class="col-lg-5">
+                    <img class="card-img-top p-4" th:src="${product.image}" th:alt="${product.name}">
+                </div>
+                <div class="col-lg-7 card mt-4">
+                    <div class="card-body">
+                        <h3 class="card-title card-header p-0" th:text="${product.name}"></h3>
+                        <div class="d-flex">
+                            <h4>Giá : </h4>
+                        <h4 th:text="${product.price}"></h4>
+                        </div>
+                        <form sec:authorize="hasAuthority('BUYER') || isAnonymous()"
+                              th:action="@{/product/{id}/cart(id=${product.id})}"
+                              method="post" class="m-0 p-0">
+                            <button title="Add to Cart" class="btn btn-danger mb-4"
+                                    type="submit">
+                                <i class="fa fas fa-cart-plus"></i> Thêm Vào Giỏ Hàng
+                            </button>
+                        </form>
+                        <div class="bordered">
+                            <h6>Miêu Tả Sản Phẩm</h6>
+                            <p class="card-text" th:text="${product.description}"></p>
+                        </div>
+
+                        <!--                    <span class="text-warning" id="rating">&#9733; &#9733; &#9733; &#9733; &#9734;</span>-->
+                        <!--                    <span th:if="${rating == 0}">No rating</span>-->
+                        <!--                    <span th:unless="${rating == 0}" th:text="${rating} + ' Stars'"></span>-->
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.card -->
+
+            <div class="card card-outline-secondary my-4">
+                <div class="card-header">
+                    Đánh Giá Sản Phẩm
+                </div>
+                <div class="card-body pb-1 pt-1 pl-3" th:each="orderItem : ${orderItems}">
+                    <p th:text="${orderItem.review}"></p>
+                    <small class="text-muted" th:text="'Posted by ' + ${orderItem.order.buyer.user.firstName} + ' on ' +
+                    ${#temporals.format(orderItem.reviewDate, 'MM-dd-yyyy HH:mm')}">Nhận xét vào ngày 3/1/17</small>
+                    <hr>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+
+            <h1 class="my-4" th:text="${seller.name}">Tên Cửa Hàng</h1>
+            <div class="list-group">
+                <img th:src="${seller.picture}" th:alt="seller.picture" style="width: 100%;">
+                <span th:text="${seller.description}"></span>
+                <!--                <form th:action="(${follow} == 1) ? @{'/buyer/seller/' + ${seller.id} + '/follow'} :-->
+                <!--                @{'/buyer/seller/' + ${seller.id} + '/unfollow'}" th:method="POST">-->
+
+                <!--                    <input type="submit" id="followBtn" class="btn btn-success" th:hidden="(${follow} > 0) ? 'false' : 'true' "-->
+                <!--                           th:value="(${follow} == 1) ? 'Unfollow' : 'Follow' "/>-->
+                <input id="sellerId" th:value="${seller.id}" hidden="hidden">
+                <button id="followBtn" class="btn btn-success" th:hidden="(${follow} > 0) ? 'false' : 'true' "
+                        th:text="(${follow} == 1) ? 'Unfollow' : 'Follow' "></button>
+
+                <!--                </form>-->
+            </div>
+
+        </div>
+        <div class="col-lg-9">
+            <div class="list-group">
+                <h2 class="my-3">Sản Phẩm Tương Tự</h2>
+                <div class="row">
+
+                <div class="col-4 card h-100 mb-3 p-2" th:each="product,iterStat : ${seller.products}" th:if="${iterStat.index}<3">
+                    <a th:href="@{'/product/' + ${product.id}}">
+                        <img th:src="${product.image}" class="img-thumbnail">
+                    </a>
+                    <a class="text-truncate" th:href="${product.image}" th:text="${product.name}"></a>
+                    <span th:text="'$'+${product.price}"></span>
+                </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+<!--    test ne-->
+</div>
+
+
+<!--test caroseul-->
+
+
+
+</html>
