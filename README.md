@@ -41,7 +41,7 @@ users
 
 <ul>
     <li>Spring boot MVC with thymeleaf + Rest API.</li>
-    <li>Hibernate, lombok + JPA as ORM.</li>
+    <li>Hibernate, lombok + JPA as ORM</li>
     <li>MySQL as the database.</li>
     <li>Bootstrap 4.3.1 as layout and template.</li>
     <li>jQuery + ajax for client manipulate with rest api.</li>
